@@ -97,7 +97,7 @@ class TeleBot:
         time.sleep(1)
         bot.send_message(chat_id=chatId, text="Recherchez une serie ou un anime en saisissant son Titre")
 
-    @bot.message_handler(func=lambda message:  last_cmd[0] == 'movies' and get_user_step(message.chat.id) == 1)
+    @bot.message_handler(func=lambda message:  last_cmd[0] == 'movies')
     def command_search_movie(message):
         chatId = message.chat.id
         bot.send_chat_action(chatId, 'typing')
@@ -116,7 +116,7 @@ class TeleBot:
                                                   "Veuillez saisir un autre titre")
         #last_cmd.clear()
 
-    @bot.message_handler(func=lambda message: last_cmd[0] == 'series' and get_user_step(message.chat.id) == 1)
+    @bot.message_handler(func=lambda message: last_cmd[0] == 'series')
     def command_search_serie(message):
         chatId = message.chat.id
         response_serie = requests.get(
@@ -137,13 +137,6 @@ class TeleBot:
                                                   "\n"
                                                   "Veuillez saisir un autre titre")
         #last_cmd.clear()
-
-    #def show_tv_episode(chatID, tvID):
-    #    response_eps = requests.get(
-    #        URI_LOCAL+ '/fr/lechapi/series/id/?id_tv=' + tvID)
-    #    list_eps = response_eps.json()
-    #    for eps in list_eps:
-    #        bot.send_message(chat_id=chatID, text=eps['link_download'])
 
     @bot.message_handler(func=lambda message: True)
     def echo_all(message):
